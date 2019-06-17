@@ -2,6 +2,7 @@ package baiduai
 
 import (
 	"encoding/base64"
+	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -59,7 +60,7 @@ func (o *ocr) respScaner(cQuery map[string]string) (Scaner, error) {
 
 type OcrGeneralBasic struct {
 	ocr
-	LanguageType string
+	languageType string
 }
 
 /*
@@ -92,16 +93,19 @@ func NewOcrGeneralBasic(c *Client, image io.Reader) *OcrGeneralBasic {
 }
 
 func (o *OcrGeneralBasic) SetLanguage(lt string) *OcrGeneralBasic {
-	o.LanguageType = lt
+	o.languageType = lt
 	return o
 }
 
 func (o *OcrGeneralBasic) Resp() (*GeneralBasicResp, error) {
-	if o.LanguageType == "" {
-		o.LanguageType = defaultLanguage
+	if o.r == nil {
+		return nil, errors.New("")
+	}
+	if o.languageType == "" {
+		o.languageType = defaultLanguage
 	}
 	s, err := o.respScaner(map[string]string{
-		"language_type": o.LanguageType,
+		"language_type": o.languageType,
 	})
 	if err != nil {
 		return nil, err
