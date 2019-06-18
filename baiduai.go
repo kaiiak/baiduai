@@ -67,8 +67,6 @@ func (c *Client) requestAccessToken() error {
 
 // GetAccessToken if token expries will refresh token
 func (c *Client) GetAccessToken() (string, error) {
-	c.tokenLock.RLock()
-	defer c.tokenLock.RUnlock()
 	if time.Now().After(c.expriesAt) {
 		if err := c.requestAccessToken(); err != nil {
 			return "", err
