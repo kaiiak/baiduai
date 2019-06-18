@@ -38,9 +38,9 @@ type Client struct {
 }
 
 // New baidu ai client
-func New(id, secret string) *Client {
+func New(key, secret string) *Client {
 	c := &Client{}
-	c.id = id
+	c.id = key
 	c.secret = secret
 
 	return c
