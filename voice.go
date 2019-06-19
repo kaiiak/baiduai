@@ -55,7 +55,7 @@ func (v *Voice) Resp() ([]string, error) {
 		v.cuid = defaultCuid
 	}
 	if v.r == nil {
-		return nil, errors.New("")
+		return nil, errors.New("voice is empty")
 	}
 	query := make(url.Values)
 	query.Set("dev_pid", strconv.Itoa(v.devPid))
@@ -73,7 +73,7 @@ func (v *Voice) Resp() ([]string, error) {
 		return nil, err
 	}
 	var resp = new(VoiceResp)
-	if err = s.Scan(v); err != nil {
+	if err = s.Scan(resp); err != nil {
 		return nil, err
 	}
 	if resp.ErrMsg != "success." {

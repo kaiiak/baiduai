@@ -99,7 +99,7 @@ func (o *OcrGeneralBasic) SetLanguage(lt string) *OcrGeneralBasic {
 
 func (o *OcrGeneralBasic) Resp() (*GeneralBasicResp, error) {
 	if o.r == nil {
-		return nil, errors.New("")
+		return nil, errors.New("ocr image is empty")
 	}
 	if o.languageType == "" {
 		o.languageType = defaultLanguage
